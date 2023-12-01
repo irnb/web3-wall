@@ -20,8 +20,12 @@ forge create `contract_path:contract_name` --template --rpc-url `rpc_url` --priv
 ### dev environment
 (you need install foundry first)
 ```bash
+
+# this will start a local chain (anvil)
 make node
+
 # in another terminal
+# this will install contract dependencies, compile, test and deploy the contract with constructor arguments in the `./args` file
 make dev
 ```
 
