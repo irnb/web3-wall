@@ -46,10 +46,13 @@ contract WallTest is Test {
     function testPinMessage() public {
         address sender = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
         string memory message = "Hello World!";
-        vm.prank(sender);
+        vm.startPrank(sender);
+        vm.deal(sender, 100 ether);
         wall.postMessage(message, "testURI");
 
         wall.pinMessage{value: 1000000}(1);
+
+        vm.stopPrank();
         assertEq(wall.pinedMessageCount(), 1);
         PinedMessage memory expected = PinedMessage(1, block.number + 30, sender);
         (uint256 messageId, uint256 validUntilBlock, address pinedBy) = wall.pinedMessages(1);
@@ -57,6 +60,38 @@ contract WallTest is Test {
 
 
         assertEq(expected.messageId, actual.messageId);
+        assertEq(expected.validUntilBlock, actual.validUntilBlock);
+        assertEq(expected.pinedBy, actual.pinedBy);
+        assertEq(address(wall).balance, 1000000);
+    }
+
+    function testPinMessageWithReputation() public {
+        address sender = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
+        string memory message1 = "Hello World!";
+        string memory message2 = "Hello World!";
+        string memory message3 = "Hello World!";
+
+        vm.startPrank(sender);
+        vm.deal(sender, 100 ether);
+        wall.postMessage(message1, "testURI1");
+        wall.postMessage(message2, "testURI2");
+        wall.postMessage(message3, "testURI3");
+
+        wall.pinMessage(1);
+
+        vm.stopPrank();
+
+
+        assertEq(wall.pinedMessageCount(), 1);
+        PinedMessage memory expected = PinedMessage(1, block.number + 30, sender);
+        (uint256 messageId, uint256 validUntilBlock, address pinedBy) = wall.pinedMessages(1);
+        PinedMessage memory actual = PinedMessage(messageId, validUntilBlock, pinedBy);
+
+        assertEq(expected.messageId, actual.messageId);
+        assertEq(expected.validUntilBlock, actual.validUntilBlock);
+        assertEq(expected.pinedBy, actual.pinedBy);
+
+
     }
 
     
