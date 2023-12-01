@@ -84,8 +84,8 @@ contract Wall is ERC721, Ownable2Step, Pausable {
         string calldata _message,
         string calldata _tokenURI
     ) external whenNotPaused {
-        messages[messageCount] = _message;
         messageCount++;
+        messages[messageCount] = _message;
 
         _mintNFT(msg.sender, _tokenURI);
     }
@@ -140,6 +140,8 @@ contract Wall is ERC721, Ownable2Step, Pausable {
         pinThresholdAuthorityCount = _pinThresholdAuthorityCount;
         pinDurationBlockCount = _pinDurationBlockCount;
         pinFee = _pinFee;
+
+        messages[messageCount] = "Welcome to Web3 Wall!";
     }
 
     function withdraw() external onlyOwner {
@@ -173,8 +175,14 @@ contract Wall is ERC721, Ownable2Step, Pausable {
         }
         uint256 _size = _limit - _offset;
         PinedMessage[] memory _pinedMessages = new PinedMessage[](_size);
+        uint256 _currentBlock = block.number;
         for (uint256 i = _offset; i < _limit; i++) {
-            _pinedMessages[i - _offset] = pinedMessages[i];
+            uint256 j = i;
+            while (pinedMessages[j].validUntilBlock < _currentBlock) {
+                require(j <= pinedMessageCount, "Invalid pined message");
+                j++;
+            }
+            _pinedMessages[i - _offset] = pinedMessages[j];
         }
         return _pinedMessages;
     }
