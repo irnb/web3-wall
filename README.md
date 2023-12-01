@@ -15,7 +15,15 @@ forge create `contract_path:contract_name` --template --rpc-url `rpc_url` --priv
 
 ## Usage
 * Using website (WIP)
-* Using CLI (`client/main.ts`)
+* Using CLI (`client/cli/main.ts`)
+
+### dev environment
+(you need install foundry first)
+```bash
+make node
+# in another terminal
+make dev
+```
 
 ## High level System Design
 <!-- add diagram image -->
