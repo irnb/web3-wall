@@ -7,6 +7,12 @@ import "../src/Wall.sol";
 contract WallTest is Test {
     Wall public wall;
 
+    struct PinedMessage {
+        uint256 messageId;
+        uint256 validUntilBlock;
+        address pinedBy;
+    }
+
     function setUp() public {
         uint64 _pinThresholdAuthorityCount = 3;
         uint64 _pinDurationBlockCount = 30;
@@ -30,6 +36,30 @@ contract WallTest is Test {
         assertEq(wall.balanceOf(sender), 1);
         assertEq(wall.messages(1), message);
     }
+
+    function testFailPinMessage() public {
+        vm.prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+
+        wall.pinMessage(10);
+    }
+
+    function testPinMessage() public {
+        address sender = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
+        string memory message = "Hello World!";
+        vm.prank(sender);
+        wall.postMessage(message, "testURI");
+
+        wall.pinMessage{value: 1000000}(1);
+        assertEq(wall.pinedMessageCount(), 1);
+        PinedMessage memory expected = PinedMessage(1, block.number + 30, sender);
+        (uint256 messageId, uint256 validUntilBlock, address pinedBy) = wall.pinedMessages(1);
+        PinedMessage memory actual = PinedMessage(messageId, validUntilBlock, pinedBy);
+
+
+        assertEq(expected.messageId, actual.messageId);
+    }
+
+    
     
 
 

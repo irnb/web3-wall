@@ -98,14 +98,14 @@ contract Wall is ERC721, Ownable2Step, Pausable {
     * @param _messageId The ID of the message that the user wants to pin.
     */
     function pinMessage(uint256 _messageId) external payable whenNotPaused {
-        require(_messageId < messageCount, "Message does not exist");
+        pinedMessageCount++;
+        require(_messageId <= messageCount, "Message does not exist");
         bool eligible = false;
 
         if (balanceOf(msg.sender) >= pinThresholdAuthorityCount) {
             eligible = true;
         } else {
-            require(msg.value >= pinFee, "Not enough fee to pin message");
-            payable(address(this)).transfer(msg.value);
+            require(msg.value >= pinFee, "Insufficient fee");
             eligible = true;
         }
         require(eligible, "Not eligible to pin message");
@@ -115,11 +115,11 @@ contract Wall is ERC721, Ownable2Step, Pausable {
             block.number + pinDurationBlockCount,
             msg.sender
         );
-        pinedMessageCount++;
     }
 
     function adminPinMessage(uint256[] memory _messageIds) external onlyOwner {
-        for (uint256 i = 0; i < _messageIds.length; i++) {
+        for (uint256 i = 0; i <= _messageIds.length; i++) {
+            pinedMessageCount++;
             uint256 _messageId = _messageIds[i];
             require(_messageId < messageCount, "Message does not exist");
 
@@ -128,7 +128,6 @@ contract Wall is ERC721, Ownable2Step, Pausable {
                 block.number + pinDurationBlockCount,
                 address(this)
             );
-            pinedMessageCount++;
         }
     }
 
