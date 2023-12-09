@@ -1,0 +1,10 @@
+.git
+.github
+build
+built
+coverage
+dist
+node_modules
+public
+.next
+/src/__generated__
