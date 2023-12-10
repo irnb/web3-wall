@@ -118,8 +118,9 @@ contract Wall is ERC721, Ownable2Step, Pausable {
         }
         require(eligible, "Not eligible to pin message");
 
+        address _messageOwner = ownerOf(_messageId);
         userUnspentCredits[msg.sender] -= pinRequiredCredits;
-        userXP[msg.sender] += pinXpReward;
+        userXP[_messageOwner] += pinXpReward;
 
         _pinedMessages[pinedMessageCount] = PinedMessage(
             _messageId,
