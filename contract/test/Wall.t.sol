@@ -17,11 +17,13 @@ contract WallTest is Test {
         uint64 _pinThresholdAuthorityCount = 3;
         uint64 _pinDurationBlockCount = 30;
         uint64 _pinFee = 1000000;
+        uint64 _pinXpReward = 100;
         
         wall = new Wall(
             _pinThresholdAuthorityCount,
             _pinDurationBlockCount,
-            _pinFee
+            _pinFee,
+            _pinXpReward
         );
     }
 
