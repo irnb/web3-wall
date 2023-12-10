@@ -1,0 +1,10 @@
+{
+  "dictionaries": [],
+  "dictionaryDefinitions": [],
+  "ignorePaths": [],
+  "ignoreRegExpList": ["0x(.*)?", "id:(.*)?", "apiKey:(.*)?"],
+  "ignoreWords": [],
+  "import": [],
+  "version": "0.2",
+  "words": []
+}
