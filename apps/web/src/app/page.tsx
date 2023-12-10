@@ -7,7 +7,7 @@ export default function Page() {
     <Link href="/about" color="blue.400" _hover={{ color: "blue.500" }}>
       About
       <div className="w-5 h-5 bg-red-500 "></div>
-      <Button variant="">connect</Button>
+      <Button variant="ghost">connect</Button>
     </Link>
   );
 }
