@@ -1,4 +1,5 @@
 ## WallNFT
+
 ![System Design](./diagram-a.png)
 
 WallNFT is a public decentralized platform implemented as a smart contract, that allows users to post messages on a "Wall". Each message is minted as a non-fungible token (NFT) based on the ERC721 standard. This approach not only ensures the uniqueness and ownership of each message, but also empowers the users with a measurable reputation in the form of NFT balances.
@@ -14,11 +15,14 @@ forge create `contract_path:contract_name` --template --rpc-url `rpc_url` --priv
 ```
 
 ## Usage
-* Using website (WIP)
-* Using CLI (`client/cli/main.ts`)
+
+- Using website (WIP)
+- Using CLI (`client/cli/main.ts`)
 
 ### dev environment
+
 (you need install foundry first)
+
 ```bash
 
 # this will start a local chain (anvil)
@@ -30,5 +34,7 @@ make dev
 ```
 
 ## High level System Design
+
 <!-- add diagram image -->
+
 ![System Design](./diagram-b.png)
