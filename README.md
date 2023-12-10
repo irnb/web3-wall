@@ -32,3 +32,5 @@ make dev
 ## High level System Design
 <!-- add diagram image -->
 ![System Design](./diagram-b.png)
+
+![Contract Doc](./diagram-c.png)

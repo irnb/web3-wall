@@ -33,12 +33,17 @@ contract Wall is ERC721, Ownable2Step, Pausable {
     uint256 public pinedMessageCount = 0;
 
     mapping(uint256 => string) public messages;
-    mapping(uint256 => PinedMessage) public pinedMessages;
+    mapping(address => uint64) public userXP;
+    mapping(address => uint256) public userUnspentCredits;
+
+    mapping(uint256 => PinedMessage) private _pinedMessages;
     mapping(uint256 => string) private _tokenURIs;
 
-    uint64 public pinThresholdAuthorityCount;
+    uint64 public pinRequiredCredits;
     uint64 public pinDurationBlockCount;
     uint64 public pinFee;
+    uint64 public pinXpReward;
+
 
     // Structs
     struct MessageReturn {
@@ -59,13 +64,15 @@ contract Wall is ERC721, Ownable2Step, Pausable {
 
     // Constructor
     constructor(
-        uint64 _pinThresholdAuthorityCount,
+        uint64 _pinRequiredCredits,
         uint64 _pinDurationBlockCount,
-        uint64 _pinFee
+        uint64 _pinFee,
+        uint64 _pinXpReward
     ) ERC721("Web3 Wall NFT", "FWT") Ownable(msg.sender) Pausable() {
-        pinThresholdAuthorityCount = _pinThresholdAuthorityCount;
+        pinRequiredCredits = _pinRequiredCredits;
         pinDurationBlockCount = _pinDurationBlockCount;
         pinFee = _pinFee;
+        pinXpReward = _pinXpReward;
     }
 
     // Fallback/Receive Functions
@@ -86,6 +93,7 @@ contract Wall is ERC721, Ownable2Step, Pausable {
     ) external whenNotPaused {
         messageCount++;
         messages[messageCount] = _message;
+        userUnspentCredits[msg.sender]++;
 
         _mintNFT(msg.sender, _tokenURI);
     }
@@ -94,7 +102,7 @@ contract Wall is ERC721, Ownable2Step, Pausable {
     * @dev This function allows a user to pin a message on the wall.
     * Each pinned message is stored with details such as the block number until it is valid and the address of the pinner.
     * The function is only allowed to be called when the contract is not paused.
-    * The user must either own a certain number of tokens (pinThresholdAuthorityCount) or pay a fee (pinFee) to pin a message.
+    * The user must either own a certain number of tokens (pinRequiredCredits) or pay a fee (pinFee) to pin a message.
     * @param _messageId The ID of the message that the user wants to pin.
     */
     function pinMessage(uint256 _messageId) external payable whenNotPaused {
@@ -102,7 +110,7 @@ contract Wall is ERC721, Ownable2Step, Pausable {
         require(_messageId <= messageCount, "Message does not exist");
         bool eligible = false;
 
-        if (balanceOf(msg.sender) >= pinThresholdAuthorityCount) {
+        if (userUnspentCredits[msg.sender] >= pinRequiredCredits) {
             eligible = true;
         } else {
             require(msg.value >= pinFee, "Insufficient fee");
@@ -110,7 +118,10 @@ contract Wall is ERC721, Ownable2Step, Pausable {
         }
         require(eligible, "Not eligible to pin message");
 
-        pinedMessages[pinedMessageCount] = PinedMessage(
+        userUnspentCredits[msg.sender] -= pinRequiredCredits;
+        userXP[msg.sender] += pinXpReward;
+
+        _pinedMessages[pinedMessageCount] = PinedMessage(
             _messageId,
             block.number + pinDurationBlockCount,
             msg.sender
@@ -123,7 +134,7 @@ contract Wall is ERC721, Ownable2Step, Pausable {
             uint256 _messageId = _messageIds[i];
             require(_messageId < messageCount, "Message does not exist");
 
-            pinedMessages[pinedMessageCount] = PinedMessage(
+            _pinedMessages[pinedMessageCount] = PinedMessage(
                 _messageId,
                 block.number + pinDurationBlockCount,
                 address(this)
@@ -132,13 +143,15 @@ contract Wall is ERC721, Ownable2Step, Pausable {
     }
 
     function changePinPolicy(
-        uint64 _pinThresholdAuthorityCount,
+        uint64 _pinRequiredCredits,
         uint64 _pinDurationBlockCount,
+        uint64 _pinXpReward,
         uint64 _pinFee
     ) external onlyOwner {
-        pinThresholdAuthorityCount = _pinThresholdAuthorityCount;
+        pinRequiredCredits = _pinRequiredCredits;
         pinDurationBlockCount = _pinDurationBlockCount;
         pinFee = _pinFee;
+        pinXpReward = _pinXpReward;
 
         messages[messageCount] = "Welcome to Web3 Wall!";
     }
@@ -173,17 +186,17 @@ contract Wall is ERC721, Ownable2Step, Pausable {
             _limit = pinedMessageCount;
         }
         uint256 _size = _limit - _offset;
-        PinedMessage[] memory _pinedMessages = new PinedMessage[](_size);
+        PinedMessage[] memory pinedMessages = new PinedMessage[](_size);
         uint256 _currentBlock = block.number;
         for (uint256 i = _offset; i < _limit; i++) {
             uint256 j = i;
-            while (pinedMessages[j].validUntilBlock < _currentBlock) {
+            while (_pinedMessages[j].validUntilBlock < _currentBlock) {
                 require(j <= pinedMessageCount, "Invalid pined message");
                 j++;
             }
-            _pinedMessages[i - _offset] = pinedMessages[j];
+            pinedMessages[i - _offset] = _pinedMessages[j];
         }
-        return _pinedMessages;
+        return pinedMessages;
     }
 
     function paginationMessages(
