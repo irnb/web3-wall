@@ -5,12 +5,13 @@ import { WaitingFormProps } from "@/types/forms";
 import { waitingFormSchema } from "@/config/formSchemas";
 import { joinWaitingList } from "@/serverActions/waitingFormAction";
 import { useState } from "react";
+import { Button, Input } from "@chakra-ui/react";
 
 export const WaitingForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading, isSubmitting },
     reset,
   } = useForm<WaitingFormProps>({
     resolver: zodResolver(waitingFormSchema),
@@ -34,7 +35,6 @@ export const WaitingForm: React.FC = () => {
       setApiError(
         "An error occurred while submitting the form. Please try again."
       );
-
       console.error(error);
     }
   };
@@ -42,8 +42,10 @@ export const WaitingForm: React.FC = () => {
   return (
     <div>
       <form className="" onSubmit={handleSubmit(submitHandler)}>
-        <input {...register("email")} />
-        <input type="submit" />
+        <Input {...register("email")} />
+        <Button type="submit" variant={"solid"}>
+          Join!
+        </Button>
       </form>
     </div>
   );

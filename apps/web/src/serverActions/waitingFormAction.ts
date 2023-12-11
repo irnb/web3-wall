@@ -14,11 +14,11 @@ export async function joinWaitingList(email: string) {
         database_id: process.env.NOTION_WAITING_DATABASE_ID!,
       },
       properties: {
-        name: {
+        date: {
           title: [
             {
               text: {
-                content: extractNameFromEmail(email),
+                content: new Date().toString(),
               },
             },
           ],
