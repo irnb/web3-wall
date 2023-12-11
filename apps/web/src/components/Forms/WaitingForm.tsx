@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { WaitingFormProps } from "@/types/forms";
 import { waitingFormSchema } from "@/config/formSchemas";
 
-const WaitingForm: React.FC = () => {
+export const WaitingForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -12,10 +12,20 @@ const WaitingForm: React.FC = () => {
   } = useForm<WaitingFormProps>({
     resolver: zodResolver(waitingFormSchema),
     defaultValues: {
-      Email: "ghjhghjgh@sss.com",
+      Email: "",
     },
   });
-  return <div>WaitingForm</div>;
-};
 
-export default WaitingForm;
+  const submitHandler: SubmitHandler<WaitingFormProps> = (data) => {
+    console.log(data);
+  };
+
+  return (
+    <div>
+      <form className="" onSubmit={handleSubmit(submitHandler)}>
+        <input {...register("Email")} />
+        <input type="submit" />
+      </form>
+    </div>
+  );
+};
