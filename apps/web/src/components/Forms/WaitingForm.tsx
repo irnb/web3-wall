@@ -45,9 +45,22 @@ export const WaitingForm: React.FC = () => {
         className="flex justify-center items-center gap-1.5"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <Input {...register("email")} />
-        <Button className="" px={5} type="submit" variant={"solid"}>
-          Join!
+        <Input
+          {...register("email")}
+          focusBorderColor="rgb(58, 35, 108)"
+          placeholder="name@example.com"
+        />
+        <Button
+          className=""
+          w={256}
+          px={10}
+          type="submit"
+          variant={"solid"}
+          colorScheme="purple"
+          isLoading={isLoading || isApiLoading}
+          loadingText="Submitting"
+        >
+          Join Our Waitlist!
         </Button>
       </form>
     </div>
