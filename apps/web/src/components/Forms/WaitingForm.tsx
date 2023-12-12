@@ -41,9 +41,12 @@ export const WaitingForm: React.FC = () => {
 
   return (
     <div>
-      <form className="" onSubmit={handleSubmit(submitHandler)}>
+      <form
+        className="flex justify-center items-center gap-1.5"
+        onSubmit={handleSubmit(submitHandler)}
+      >
         <Input {...register("email")} />
-        <Button type="submit" variant={"solid"}>
+        <Button className="" px={5} type="submit" variant={"solid"}>
           Join!
         </Button>
       </form>
