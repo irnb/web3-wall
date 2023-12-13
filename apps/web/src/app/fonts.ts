@@ -4,7 +4,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 
 const rubik = Rubik({
   subsets: ["latin"],
-  variable: "--font-rubik",
+  variable: "--font-body",
   display: "block",
 });
 

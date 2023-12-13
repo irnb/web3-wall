@@ -5,7 +5,8 @@ import { WaitingFormProps } from "@/types/forms";
 import { waitingFormSchema } from "@/config/formSchemas";
 import { joinWaitingList } from "@/serverActions/waitingFormAction";
 import { useState } from "react";
-import { Alert, AlertIcon, Button, Input } from "@chakra-ui/react";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 export const WaitingForm: React.FC = () => {
   const {
@@ -50,29 +51,20 @@ export const WaitingForm: React.FC = () => {
         >
           <Input
             {...register("email")}
-            focusBorderColor="rgb(58, 35, 108)"
+            color="primary"
             placeholder="name@example.com"
           />
-          <Button
-            className=""
-            w={256}
-            px={10}
-            type="submit"
-            variant={"solid"}
-            colorScheme="purple"
-            isLoading={isLoading || isApiLoading || isSubmitting}
-            loadingText="Submitting"
-          >
+          <Button className="w-[256px] p-3" type="submit" variant="default">
             Join Our Waitlist!
           </Button>
         </form>
       )}
-      {isSuccess && (
+      {/* {isSuccess && (
         <Alert status="success" className="rounded-lg">
           <AlertIcon />
           You successfully joined to the waiting list!
         </Alert>
-      )}
+      )} */}
     </div>
   );
 };

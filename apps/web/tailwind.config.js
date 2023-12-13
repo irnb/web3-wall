@@ -8,6 +8,13 @@ module.exports = {
   presets: [],
   darkMode: "media", // or 'class'
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     accentColor: ({ theme }) => ({
       ...theme("colors"),
       auto: "auto",
@@ -18,6 +25,8 @@ module.exports = {
       ping: "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
       pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       bounce: "bounce 1s infinite",
+      "accordion-down": "accordion-down 0.2s ease-out",
+      "accordion-up": "accordion-up 0.2s ease-out",
     },
     aria: {
       checked: "checked=\"true\"",
@@ -195,7 +204,6 @@ module.exports = {
       "6xl": "72rem",
       "7xl": "80rem",
     },
-    container: {},
     content: {
       none: "none",
     },
@@ -308,6 +316,7 @@ module.exports = {
       DEFAULT: "1",
     },
     fontFamily: {
+      body: ["var(--font-body)"],
       sans: [
         "ui-sans-serif",
         "system-ui",
@@ -560,6 +569,14 @@ module.exports = {
       DEFAULT: "100%",
     },
     keyframes: {
+      "accordion-down": {
+        from: { height: 0 },
+        to: { height: "var(--radix-accordion-content-height)" },
+      },
+      "accordion-up": {
+        from: { height: "var(--radix-accordion-content-height)" },
+        to: { height: 0 },
+      },
       spin: {
         to: {
           transform: "rotate(360deg)",
@@ -1003,5 +1020,5 @@ module.exports = {
       50: "50",
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
