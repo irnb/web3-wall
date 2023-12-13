@@ -50,7 +50,7 @@ export const WaitingForm: React.FC = () => {
     <div>
       {!isSuccess && (
         <form
-          className="flex justify-center items-center gap-2"
+          className="flex flex-col ssm:flex-row justify-center items-center gap-2"
           onSubmit={handleSubmit(submitHandler)}
         >
           <Input
@@ -59,7 +59,11 @@ export const WaitingForm: React.FC = () => {
             placeholder="name@example.com"
             className="text-white"
           />
-          <Button className="w-[256px] p-3" type="submit" variant="default">
+          <Button
+            className="w-full ssm:w-[256px] p-3"
+            type="submit"
+            variant="default"
+          >
             {isFormLoading ? (
               <div className="w-full h-full flex gap-1 justify-center items-center">
                 <PuffLoader
