@@ -1,81 +1,77 @@
-# Turborepo starter
-
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
+# FarmWall
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
+- `contract`: containing smart contract
+- `web`: [Next.js](https://nextjs.org/) app
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 1- Smart Contract
 
+![System Design](./contract/diagram-a.png)
+
+WallNFT is a public decentralized platform implemented as a smart contract, that allows users to post messages on a "Wall". Each message is minted as a non-fungible token (NFT) based on the ERC721 standard. This approach not only ensures the uniqueness and ownership of each message, but also empowers the users with a measurable reputation in the form of NFT balances.
+
+The platform incorporates a feature of "Pinning" a message. Users with sufficient reputation (NFT balance) or those willing to pay a fee can pin a message, making it more prominent. The platform also integrates with an AI engine. Each time a user creates a post, the AI engine generates an image for the post, which is then used as the art for the associated NFT.
+
+## Deployment
+
+this is a foundry project, so you can deploy it using the foundry cli:
+
+```bash
+forge create `contract_path:contract_name` --template --rpc-url `rpc_url` --private-key `private_key`
+```
+
+## Usage
+
+- Using website (WIP)
+- Using CLI (`client/cli/main.ts`)
+
+### dev environment
+
+(you need install foundry first)
+
+```bash
+
+# this will start a local chain (anvil)
+make node
+
+# in another terminal
+# this will install contract dependencies, compile, test and deploy the contract with constructor arguments in the `./args` file
+make dev
+```
+
+## High level System Design
+
+<!-- add diagram image -->
+
+![System Design](./contract/diagram-b.png)
+
+
+## 2- Frontend
+
+Next.js ```./apps/web``` application with TypeScript, Shadcn-UI, and WAGMI.
 ### Utilities
-
-This Turborepo has some additional tools already setup for you:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
+### Environment variables
+Copy environment variable examples, create .env and .env.local files, and replace values.
+
+
 ### Build
 
-To build all apps and packages, run the following command:
-
 ```
-cd my-turborepo
-pnpm build
+1- turbo build
+2- turbo start
 ```
 
 ### Develop
 
-To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
-pnpm dev
+turbo dev
 ```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
