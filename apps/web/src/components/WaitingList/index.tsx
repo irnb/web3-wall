@@ -6,7 +6,7 @@ const WaitingList: React.FC = () => {
     <div className="w-full h-full flex justify-center items-center relative">
       <Background />
       <div className="absolute w-full h-full flex justify-center items-center z-10">
-        <div className="flex flex-col w-[500px] h-[310px] p-10 bg-[rgb(14,20,22)]/90 rounded-lg ring-0 ring-[rgb(58,35,108)] hover:ring-2 duration-500">
+        <div className="flex flex-col w-[500px] h-[360px] p-10 bg-[rgb(14,20,22)]/90 rounded-lg ring-0 ring-[rgb(58,35,108)] hover:ring-2 duration-500">
           <span className="text-3xl font-semibold text-center text-white">
             Web3Wall is currently in private beta!
           </span>

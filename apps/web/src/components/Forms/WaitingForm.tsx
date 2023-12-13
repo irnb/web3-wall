@@ -7,6 +7,9 @@ import { joinWaitingList } from "@/serverActions/waitingFormAction";
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Alert, AlertDescription } from "../ui/alert";
+import { CheckCircle } from "lucide-react";
+import PuffLoader from "react-spinners/PuffLoader";
 
 export const WaitingForm: React.FC = () => {
   const {
@@ -24,6 +27,7 @@ export const WaitingForm: React.FC = () => {
   const [isApiLoading, setIsApiLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const isFormLoading = isApiLoading || isSubmitting || isLoading;
 
   const submitHandler: SubmitHandler<WaitingFormProps> = async (data) => {
     try {
@@ -53,18 +57,35 @@ export const WaitingForm: React.FC = () => {
             {...register("email")}
             color="primary"
             placeholder="name@example.com"
+            className="text-white"
           />
           <Button className="w-[256px] p-3" type="submit" variant="default">
-            Join Our Waitlist!
+            {isFormLoading ? (
+              <div className="w-full h-full flex gap-1 justify-center items-center">
+                <PuffLoader
+                  color={"black"}
+                  loading={true}
+                  size={25}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+                <span>Submiting!</span>
+              </div>
+            ) : (
+              "Join Our Waitlist!"
+            )}
           </Button>
         </form>
       )}
-      {/* {isSuccess && (
-        <Alert status="success" className="rounded-lg">
-          <AlertIcon />
-          You successfully joined to the waiting list!
+
+      {isSuccess && (
+        <Alert variant={"success"} color="black" className="bg-green-300">
+          <CheckCircle className="h-4 w-4" />
+          <AlertDescription className="text-base font-bold">
+            You successfully joined to the waiting list!
+          </AlertDescription>
         </Alert>
-      )} */}
+      )}
     </div>
   );
 };
