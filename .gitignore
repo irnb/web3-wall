@@ -50,3 +50,4 @@ out/
 # Dotenv file
 .env
 
+tsconfig.tsbuildinfo
