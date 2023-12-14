@@ -9,7 +9,7 @@
 
 ## 1- Smart Contract
 
-![System Design](./contract/diagram-a.png)
+![System Design](./media/diagram-a.png)
 
 WallNFT is a public decentralized platform implemented as a smart contract, that allows users to post messages on a "Wall". Each message is minted as a non-fungible token (NFT) based on the ERC721 standard. This approach not only ensures the uniqueness and ownership of each message, but also empowers the users with a measurable reputation in the form of NFT balances.
 
@@ -46,7 +46,9 @@ make dev
 
 <!-- add diagram image -->
 
-![System Design](./contract/diagram-b.png)
+![System Design](./media/diagram-b.png)
+
+![Contract Doc](./media/diagram-c.png)
 
 
 ## 2- Frontend
