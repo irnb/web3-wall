@@ -1,7 +1,6 @@
 # FarmWall
 
-# this will start a local chain (anvil)
-make node
+### Apps and Packages
 
 - `contract`: containing smart contract
 - `web`: [Next.js](https://nextjs.org/) app
@@ -70,9 +69,7 @@ Copy environment variable examples, create .env and .env.local files, and replac
 2- turbo start
 ```
 
-## High level System Design
-<!-- add diagram image -->
-![System Design](./diagram-b.png)
+### Develop
 
 
 ```
