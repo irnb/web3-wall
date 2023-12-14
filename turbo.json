@@ -38,6 +38,20 @@
       ],
       "env": ["NOTION_API_KEY", "NOTION_WAITING_DATABASE_ID"]
     },
+    "make:node": {
+      "cache": false,
+      "persistent": true,
+      "dotEnv": [
+        ".env"
+      ]
+    },
+    "make:dev": {
+      "cache": false,
+      "persistent": false,
+      "dotEnv": [
+        ".env"
+      ]
+    },
     "format": {},
     "check:types": {}
   }

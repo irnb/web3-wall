@@ -2,5 +2,8 @@
   "name": "contract",
   "version": "1.0.0",
   "private": false,
-  "scripts": {}
+  "scripts": {
+    "make:node": "make node",
+    "make:dev": "make dev"
+  }
 }
