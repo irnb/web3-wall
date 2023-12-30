@@ -48,7 +48,7 @@ const WaitingList: React.FC = () => {
           </span>
           <span className="text-base mt-10 mb-5 text-center text-white/90">
             Join the FarmWall waitlist for early access to the platform and
-            entering the first round of contest with eye-catching prizes
+            entering the first round of contest with eye-catching prizes.
           </span>
           {!isFollowedTwitter ? (
             <>
