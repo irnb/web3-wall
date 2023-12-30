@@ -39,7 +39,7 @@ const WaitingList: React.FC = () => {
       <motion.div
         {...defaultFramerProps}
         variants={fadeInAnimation}
-        custom={1}
+        custom={0.7}
         className="absolute w-full h-full flex justify-center items-center z-10 overflow-hidden"
       >
         <div className="relative flex flex-col w-full ssm:w-[500px] sm:h-[360px] p-10 bg-[rgb(14,20,22)]/90 rounded-lg ring-0 ring-[rgb(58,35,108)] hover:ring-2 duration-500 border border-[rgb(58,35,108)]/50 mx-3 ssm:mx-0 text-white">
@@ -67,26 +67,25 @@ const WaitingList: React.FC = () => {
           ) : (
             <WaitingForm />
           )}
-
-          {isFollowedTwitter && (
-            <div className="absolute top-1 right-1">
-              <motion.a
-                {...defaultFramerProps}
-                variants={fadeInAnimation}
-                custom={2}
-                href="https://twitter.com/farmwall_fun?ref_src=twsrc%5Etfw"
-                className="twitter-follow-button"
-                data-show-count="false"
-                data-size="large"
-                data-show-screen-name="false"
-              >
-                Follow
-              </motion.a>
-            </div>
-          )}
+          <div
+            className={`absolute top-1 right-1 delay-2000 duration-500 opacity-0 ${
+              isFollowedTwitter && "opacity-100"
+            }`}
+          >
+            <motion.a
+              custom={2}
+              href="https://twitter.com/farmwall_fun?ref_src=twsrc%5Etfw"
+              className="twitter-follow-button"
+              data-show-count="false"
+              data-size="large"
+              data-show-screen-name="false"
+            >
+              Follow
+            </motion.a>
+            <Script async src="https://platform.twitter.com/widgets.js" />
+          </div>
         </div>
       </motion.div>
-      <Script async src="https://platform.twitter.com/widgets.js" />
     </div>
   );
 };
