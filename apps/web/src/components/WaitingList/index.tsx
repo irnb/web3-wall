@@ -82,11 +82,11 @@ const WaitingList: React.FC = () => {
               >
                 Follow
               </motion.a>
-              <Script async src="https://platform.twitter.com/widgets.js" />
             </div>
           )}
         </div>
       </motion.div>
+      <Script async src="https://platform.twitter.com/widgets.js" />
     </div>
   );
 };
