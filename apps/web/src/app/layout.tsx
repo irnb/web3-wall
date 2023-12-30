@@ -3,6 +3,10 @@ import { Providers } from "./providers";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
+import { GlobalMetadata } from "./metadata";
+
+export const metadata: Metadata = GlobalMetadata;
 
 export default function RootLayout({
   children,
