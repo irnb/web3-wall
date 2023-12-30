@@ -3,9 +3,16 @@ import { useState } from "react";
 import { WaitingForm } from "../Forms";
 import Background from "./Background";
 import { Button } from "../ui/button";
+import {
+  getLocalStorageItemWithExpiry,
+  setLocalStorageItemWithExpiry,
+} from "@/utils/localStorage";
 
 const WaitingList: React.FC = () => {
-  const [isFollowedTwitter, setIsFollowedTwitter] = useState(false);
+  const [isFollowedTwitter, setIsFollowedTwitter] = useState<boolean>(() => {
+    const storedValue = getLocalStorageItemWithExpiry("isFollowedTwitter");
+    return storedValue !== null ? JSON.parse(storedValue) : false;
+  });
   const followTwitterHandler = () => {
     window.open(
       "https://x.com",
@@ -13,6 +20,11 @@ const WaitingList: React.FC = () => {
       "height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes"
     );
     setIsFollowedTwitter(true);
+    setLocalStorageItemWithExpiry(
+      "isFollowedTwitter",
+      JSON.stringify(true),
+      30 * 24 * 60
+    );
   };
 
   return (
