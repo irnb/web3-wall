@@ -1,21 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { WaitingForm } from "../Forms";
 import Background from "./Background";
 import { Button } from "../ui/button";
+import { motion } from "framer-motion";
 import {
   getLocalStorageItemWithExpiry,
   setLocalStorageItemWithExpiry,
 } from "@/utils/localStorage";
+import Script from "next/script";
+import { defaultFramerProps, fadeInAnimation } from "@/utils/animations";
 
 const WaitingList: React.FC = () => {
-  const [isFollowedTwitter, setIsFollowedTwitter] = useState<boolean>(() => {
+  const [isFollowedTwitter, setIsFollowedTwitter] = useState<boolean>(false);
+  useEffect(() => {
     const storedValue = getLocalStorageItemWithExpiry("isFollowedTwitter");
-    return storedValue !== null ? JSON.parse(storedValue) : false;
-  });
+    setIsFollowedTwitter(
+      storedValue !== null ? JSON.parse(storedValue) : false
+    );
+  }, []);
   const followTwitterHandler = () => {
     window.open(
-      "https://x.com",
+      "https://x.com/farmwall_fun",
       "popUpWindow",
       "height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes"
     );
@@ -30,8 +36,13 @@ const WaitingList: React.FC = () => {
   return (
     <div className="w-full h-full flex justify-center items-center relative">
       <Background />
-      <div className="absolute w-full h-full flex justify-center items-center z-10">
-        <div className="flex flex-col w-full ssm:w-[500px] sm:h-[360px] p-10 bg-[rgb(14,20,22)]/90 rounded-lg ring-0 ring-[rgb(58,35,108)] hover:ring-2 duration-500 border border-[rgb(58,35,108)]/50 mx-3 ssm:mx-0 text-white">
+      <motion.div
+        {...defaultFramerProps}
+        variants={fadeInAnimation}
+        custom={1}
+        className="absolute w-full h-full flex justify-center items-center z-10 overflow-hidden"
+      >
+        <div className="relative flex flex-col w-full ssm:w-[500px] sm:h-[360px] p-10 bg-[rgb(14,20,22)]/90 rounded-lg ring-0 ring-[rgb(58,35,108)] hover:ring-2 duration-500 border border-[rgb(58,35,108)]/50 mx-3 ssm:mx-0 text-white">
           <span className="text-3xl font-semibold text-center ">
             FarmWall waitlist!
           </span>
@@ -51,14 +62,31 @@ const WaitingList: React.FC = () => {
                 >
                   Follow Twitter
                 </Button>
-                <p></p>
               </div>
             </>
           ) : (
             <WaitingForm />
           )}
+
+          {isFollowedTwitter && (
+            <div className="absolute top-1 right-1">
+              <motion.a
+                {...defaultFramerProps}
+                variants={fadeInAnimation}
+                custom={2}
+                href="https://twitter.com/farmwall_fun?ref_src=twsrc%5Etfw"
+                className="twitter-follow-button"
+                data-show-count="false"
+                data-size="large"
+                data-show-screen-name="false"
+              >
+                Follow
+              </motion.a>
+              <Script async src="https://platform.twitter.com/widgets.js" />
+            </div>
+          )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
