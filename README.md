@@ -33,6 +33,7 @@ forge create `contract_path:contract_name` --template --rpc-url `rpc_url` --priv
 (you need install foundry first)
 
 ```bash
+cd contract
 
 # this will start a local chain (anvil)
 make node
@@ -40,6 +41,15 @@ make node
 # in another terminal
 # this will install contract dependencies, compile, test and deploy the contract with constructor arguments in the `./args` file
 make dev
+```
+
+You can also run the project from the root
+(you need to install pnpm first)
+```bash
+pnpm install
+turbo make:node
+# in another terminal
+turbo make:dev
 ```
 
 ## High level System Design
