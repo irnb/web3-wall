@@ -2,7 +2,7 @@ const Background = () => {
   return (
     <div className="w-full h-full bg-[rgba(14,20,22,100%)] flex justify-center items-center">
       <div
-        className="w-full h-[600px] overflow-hidden"
+        className="w-full h-[450px]  sm:h-[600px] overflow-hidden"
         style={{ perspective: "calc(600px * 0.75)" }}
       >
         <div
