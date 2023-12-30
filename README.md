@@ -45,6 +45,7 @@ make dev
 
 You can also run the project from the root
 (you need to install pnpm first)
+
 ```bash
 pnpm install
 turbo make:node
@@ -60,10 +61,10 @@ turbo make:dev
 
 ![Contract Doc](./media/diagram-c.png)
 
-
 ## 2- Frontend
 
-Next.js ```./apps/web``` application with TypeScript, Shadcn-UI, and WAGMI.
+Next.js `./apps/web` application with TypeScript, Shadcn-UI, and WAGMI.
+
 ### Utilities
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
@@ -71,8 +72,8 @@ Next.js ```./apps/web``` application with TypeScript, Shadcn-UI, and WAGMI.
 - [Prettier](https://prettier.io) for code formatting
 
 ### Environment variables
-Copy environment variable examples, create .env and .env.local files, and replace values.
 
+Copy environment variable examples, create .env and .env.local files, and replace values.
 
 ### Build
 
@@ -82,7 +83,6 @@ Copy environment variable examples, create .env and .env.local files, and replac
 ```
 
 ### Develop
-
 
 ```
 turbo dev
