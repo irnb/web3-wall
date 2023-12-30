@@ -1,2 +1,12 @@
 /** @type {import('next').NextConfig} */
-module.exports = {};
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/waitlist",
+        permanent: false,
+      },
+    ];
+  },
+};

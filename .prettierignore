@@ -8,3 +8,4 @@ node_modules
 public
 .next
 /src/__generated__
+/contract/lib

@@ -27,10 +27,6 @@
       "prettier --write \"**/*.{ts,tsx,md}\"",
       "eslint --fix"
     ],
-    "packages/ui/**/*.{js,ts,jsx,tsx}": [
-      "prettier --write \"**/*.{ts,tsx,md}\"",
-      "eslint --fix"
-    ],
     "*.json": [
       "prettier --write"
     ]
