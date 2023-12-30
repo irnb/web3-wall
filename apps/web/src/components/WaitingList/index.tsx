@@ -54,7 +54,7 @@ const WaitingList: React.FC = () => {
             <>
               <div className="flex flex-col justify-center items-center gap-1 text-sm text-gray-300">
                 <p className="text-center">Follow Twitter for fun updates 🚀</p>
-                <p className="text-center">Then you can join our wait list!</p>
+                <p className="text-center">Then you can join our waitlist!</p>
                 <Button
                   className="mt-3"
                   onClick={followTwitterHandler}
@@ -68,21 +68,22 @@ const WaitingList: React.FC = () => {
             <WaitingForm />
           )}
           <div
-            className={`absolute top-1 right-1 delay-2000 duration-500 opacity-0 ${
+            className={`absolute top-1 right-1 delay-2000 duration-1000  opacity-0 ${
               isFollowedTwitter && "opacity-100"
             }`}
           >
-            <motion.a
-              custom={2}
-              href="https://twitter.com/farmwall_fun?ref_src=twsrc%5Etfw"
-              className="twitter-follow-button"
-              data-show-count="false"
-              data-size="large"
-              data-show-screen-name="false"
-            >
-              Follow
-            </motion.a>
-            <Script async src="https://platform.twitter.com/widgets.js" />
+            <div className="animate-pulse p-px bg-white rounded-full">
+              <a
+                href="https://twitter.com/farmwall_fun?ref_src=twsrc%5Etfw"
+                className="twitter-follow-button"
+                data-show-count="false"
+                data-size="large"
+                data-show-screen-name="false"
+              >
+                Follow
+              </a>
+              <Script async src="https://platform.twitter.com/widgets.js" />
+            </div>
           </div>
         </div>
       </motion.div>
